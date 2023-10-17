@@ -8,7 +8,7 @@ class Database:
 
     def init(self):
         self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users(id primary key ,
+        CREATE TABLE IF NOT EXISTS users(id integer primary key AUTOINCREMENT,
                                          username TEXT not null,
                                          password TEXT not null,
                                          role TEXT not null,

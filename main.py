@@ -19,18 +19,23 @@ def index():
     print(data)
     response_data = [Users(*obj) for obj in data]
     data = {'users': response_data}
-    return render_template('index.html', users = response_data)
+    return render_template('index.html', users=response_data)
 
 
-@app.route('/', methods=['POST'])
+@app.route('/create', methods=['GET', 'POST'])
 def create_user():
-    if request.method =='POST':
-        print(request.form)
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        role = request.form.get('role')
+        age = request.form.get('age')
         cursor = db.get_cursor()
-        cursor.execute(f"""INSERT INTO users (id, username, password, role, age)
-                      VALUES ({request.form.get('username')}, "4444", "admin", 25 )
-                      """)
-    return 'asd'
+        cursor.execute("""INSERT INTO users (username, password, role, age)
+                      VALUES (?, ?, ?, ?)
+                      """, (username, password, role, age))
+        db.conn.commit()
+        return 'created'
+    return render_template('create_user.html')
 
 
 

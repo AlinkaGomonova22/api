@@ -1,3 +1,4 @@
+import uuid
 from dataclasses import dataclass
 
 
@@ -8,3 +9,6 @@ class Users:
     password: str
     role: str
     age: int
+
+
+# print(uuid.uuid4())
